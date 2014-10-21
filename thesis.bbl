@@ -1,0 +1,37 @@
+\begin{thebibliography}{5}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Graves et~al.(2013)Graves, Mohamed, and Hinton]{graves2013speech}
+Graves, Alex, Mohamed, Abdel-rahman, and Hinton, Geoffrey.
+\newblock Speech recognition with deep recurrent neural networks.
+\newblock In \emph{Acoustics, Speech and Signal Processing (ICASSP), 2013 IEEE
+  International Conference on}, pp.\  6645--6649. IEEE, 2013.
+
+\bibitem[Krizhevsky et~al.(2012)Krizhevsky, Sutskever, and
+  Hinton]{krizhevsky2012imagenet}
+Krizhevsky, Alex, Sutskever, Ilya, and Hinton, Geoffrey~E.
+\newblock Imagenet classification with deep convolutional neural networks.
+\newblock In \emph{Advances in neural information processing systems}, pp.\
+  1097--1105, 2012.
+
+\bibitem[Mikolov(2012)]{mikolov2012statistical}
+Mikolov, Tom{\'a}{\v{s}}.
+\newblock \emph{Statistical language models based on neural networks}.
+\newblock PhD thesis, Ph. D. thesis, Brno University of Technology, 2012.
+
+\bibitem[Sutskever et~al.(2014)Sutskever, Vinyals, and
+  Le]{sutskever2014sequence}
+Sutskever, Ilya, Vinyals, Oriol, and Le, Quoc~V.
+\newblock Sequence to sequence learning with neural networks.
+\newblock \emph{arXiv preprint arXiv:1409.3215}, 2014.
+
+\bibitem[Zaremba et~al.(2014)Zaremba, Kurach, and Fergus]{zaremba2014learning}
+Zaremba, Wojciech, Kurach, Karol, and Fergus, Rob.
+\newblock Learning to discover efficient mathematical identities.
+\newblock \emph{arXiv preprint arXiv:1406.1584}, 2014.
+
+\end{thebibliography}
