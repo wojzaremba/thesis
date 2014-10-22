@@ -1,4 +1,4 @@
-\begin{thebibliography}{5}
+\begin{thebibliography}{8}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -10,6 +10,10 @@ Graves, Alex, Mohamed, Abdel-rahman, and Hinton, Geoffrey.
 \newblock Speech recognition with deep recurrent neural networks.
 \newblock In \emph{Acoustics, Speech and Signal Processing (ICASSP), 2013 IEEE
   International Conference on}, pp.\  6645--6649. IEEE, 2013.
+
+\bibitem[Graves et~al.(2014)Graves, Wayne, and Danihelka]{graves2014neural}
+Graves, Alex, Wayne, Greg, and Danihelka, Ivo.
+\newblock Neural turing machines, 2014.
 
 \bibitem[Krizhevsky et~al.(2012)Krizhevsky, Sutskever, and
   Hinton]{krizhevsky2012imagenet}
@@ -28,6 +32,14 @@ Mikolov, Tom{\'a}{\v{s}}.
 Sutskever, Ilya, Vinyals, Oriol, and Le, Quoc~V.
 \newblock Sequence to sequence learning with neural networks.
 \newblock \emph{arXiv preprint arXiv:1409.3215}, 2014.
+
+\bibitem[Weston et~al.(2014)Weston, Chopra, and Bordes]{weston2014memory}
+Weston, Jason, Chopra, Sumit, and Bordes, Antoine.
+\newblock Memory networks, 2014.
+
+\bibitem[Zaremba \& Sutskever(2014)Zaremba and Sutskever]{zaremba2014execute}
+Zaremba, Wojciech and Sutskever, Ilya.
+\newblock Learning to execute, 2014.
 
 \bibitem[Zaremba et~al.(2014)Zaremba, Kurach, and Fergus]{zaremba2014learning}
 Zaremba, Wojciech, Kurach, Karol, and Fergus, Rob.

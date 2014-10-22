@@ -149,35 +149,53 @@ learning system to become ``intelligent''. Moreover, it attempts to address this
 
 I believe, that crucial, poorly addressed skills that intelligent system has to poses are
 (1) reasoning abilities, (2) capability to integrate with external interfaces and (3) small sample complexity. 
-I would like to address all this problems within seamless system. The same system should be used across
+I would like to address all this problems within a seamless system. The same system should be used across
 different tasks, and should be able to emulate simpler models. 
 
 
-I have partially addressed some of proposed problems. I am referring to my work, and I am defining future goals.
-
+I have partially addressed some of proposed problems. I will make clear over the further part of this proposal, 
+which parts have been addressed, and which are future goals.
 
 
 
 \section{Reasoning abilities}
 
-Reasoning - ``the process of forming conclusions, judgments, or inferences from facts or 
-premises'' \footnote{Definition from \url{http://dictionary.reference.com/browse/reasoning}}.
+\textit{Reasoning} - ``the process of forming conclusions, judgments, or inferences from facts or 
+premises''\footnote{Definition from \url{http://dictionary.reference.com/browse/reasoning}}.
+\\
+\\
+System that can reason should be able to understand high level concepts like 
+\begin{itemize}
+ \item understand scope
+ \item being able to memorize 
+ \item branching
+ \item repetitions
+ \item and many more
+\end{itemize}
+Each of this skills could be solved in particular domain. However, such approach limits use of such system,
+and assumes that we know a priori all possible scenarios. 
+Moreover, I think that, intelligent reasoning system cannot be based only on predefined rules. 
+Intelligent system has to be based on pattern matching, and application of learnt heuristic algorithms. 
 
 
-
-
-
-
-
-There exists many rule based reasoning systems. 
-However, intelligent system reasoning cannot be based only on predefined rules. 
-It has to be based on pattern matching, and application of learnt heuristic algorithms. 
-I would like to build a statistical reasoning system. 
-
-
-There are many domains where it is crucial. Domains of my interest include learning object relations in computer vision, proving mathematical theorems, and learning about computer programs.
+There are many domains where we can test if our system can reason, and if it's able to learn postulated concepts. Eventually,
+I would like to use the same tools for all domains. 
+Domains of my interest are learning about computer programs, and 
+proving mathematical theorems.
+This domains are rich in scoping, branching, pattern repetition, and so on. Drawing
+high level conclusions in such domains requires sophisticated reasoning skills.
 
 \subsection{Reasoning in computer programs}
+The first reasoning task that I am interest in is to train statistical models meaning of computer programs.
+I propose one instance of program understanding.
+Task is to take a program as an input (in our case character-by-character), and predict program evaluation. 
+Prediction of program evaluation requires understanding every single operand of a program. For instance, in case of
+addition it 
+involves bit shifts, and memorization of operations on digits. Moreover, programs contain variable assignment, if-statements, and so on.
+We were able partially to address postulated problem
+\cite{zaremba2014execute}.
+Figure \ref{fig:prog} shows
+an exemplary program, target for such program, and prediction that we obtained with recurrent neural network.
 
 \begin{figure}
   \begin{code}
@@ -191,12 +209,35 @@ There are many domains where it is crucial. Domains of my interest include learn
   {\bf Model prediction:} 9368. 
   \end{mdframed}
   \end{code}
-  \caption{aaa}
+  \caption{An exemplary program that we take as an input. Task is to predict program evaluation. We have 
+  achieved high performance on this task \cite{zaremba2014execute}.}
+  \label{fig:prog}
 \end{figure}
 
 
+Current results are promising, however they are very limited. We are able to deal with programs
+that can be evaluated by reading them once from left-to-right. Generic programs are not like that.
+Our reasoning system has to be able to evaluate for arbitrary long time, if
+task requires it. Moreover, it shouldn't be limited by finite memory size. Memory should be available
+as an interface \ref{sec:interface}.
+
 
 \subsection{Reasoning in mathematics}
+It's known that theorem proving is an intractable task in computational sense. 
+However, humans are able to prove theorems. They have to employ a prior
+knowledge. They fit known mathematical ``tricks'' to the new problem.
+
+
+More formally, we can think about proofs as a multiple axioms application that starts with
+hypothesis that we want to prove. This way mathematical skills can be perceived as 
+learning prior over trees of axioms. This prior ``suggests'' us which sequence of axioms is more
+likely to lead to the theorem proof. 
+
+
+My interest lies in learning such prior in some constrained mathematical 
+domain. Our recent work \cite{zaremba2014learning}, concerns identities 
+over polynomials over matrices. Figure \ref{fig:ident} shows \ref{fig:ident}
+
 
 \begin{figure}
   \centering
@@ -204,20 +245,17 @@ There are many domains where it is crucial. Domains of my interest include learn
   {\bf Is equivalent to:}\\
   \includegraphics[width=0.48\textwidth]{imgs/example1_opt.png}\\
   \caption{\cite{zaremba2014learning}}
+  \label{fig:ident}
 \end{figure}
 
-
-\subsection{Reasoning in computer vision}
-
-\begin{figure}
-  \centering
-  \includegraphics[width=0.48\textwidth]{imgs/abstract.png}\\
-  \caption{Jenny loves to play soccer but she is worried that Mike will kick the ball too hard.}
-\end{figure}
 
 \section{Interface learning}
-Contemporary machine learning systems are closed in a box, and cannot 
-interact with external interfaces. 
+\label{sec:interface}
+Contemporary machine learning systems are closed in a box.
+They have limited access to the training dataset, 
+
+, and cannot 
+interact with external interfaces.
 
 
 Initial advances in machine learning, where lead by engineering features, 
@@ -225,25 +263,39 @@ e.g histogram of colors, SIFT (Scale-invariant feature transform) features.
 This approach has its limitations, and its fragile. Moreover, it requires a 
 human expert to train the system for the every new domain. Ideal system should 
 have access to external interfaces that might give access to information, or simplify it processing. 
-Interfaces that I have in mind are following (1) grid that helps to process images, (2) search engine, 
+Interfaces that I have in mind are following (1) an external memory \cite{weston2014memory, graves2014neural}, 
+(2) grid that helps to process images, (2) search engine, 
 (4) Linux syscalls, or (5) execution environment like python interpreter. External interfaces are not-differentiable, 
 and their state space is massive. This obstacles could potentially be addressed by learning a differentiable 
-model that describes them (e.g. neural network). Neural network would simulate such external interface in a model-based reinforcement learning approach. 
+model that describes them (e.g. neural network). Neural network would simulate such 
+external interface for purpose of being differentiable in a model-based reinforcement learning approach. 
+This work is under progress.
 
-\section{Toward all tasks one-shot learning}
+\section{Small sample complexity}
 Current deep learning systems suffer of large sample complexity. Such 
 high sample complexity hinders potential use of the systems in online 
 learning systems (e.g. robots). It’s expected that during the initial phase of 
 learning any system without prior knowledge would need to consume a large number of samples. 
 We hope that over the time of training, sample complexity should drop. However, this is 
-not observed in current systems. I would like to build a meta-optimizer that could 
+not observed in current systems. I propose several approaches how sample complexity can be decreased. 
+Meta-optimizer is a target solution. However, I propose some intermediate solutions, that can potentially help.
+
+\subsection{Augmentation marginalization}
+
+\subsection{One-shot learning objective}
+
+
+This work is under progress.
+
+\subsection{Meta-optimizer}
+I would like to build a meta-optimizer that could 
 overcome this limitation. Such optimizer would consume gradients of a neural network, 
 and would decide on the next update step. Optimizer itself could be parameterized 
 with a neural network. Proper weights could simulate any first order, gradient-based, 
 learning algorithm like SGD, momentum, LBFGs etc. This implies that meta-optimizer 
 subsumes all first order, gradient-based optimization techniques. Trained meta-optimizer 
 could update the network in a much more clever way, and a single sample could provide enough knowledge.
-
+This work is under progress.
 
 
 \section{Discussion}
@@ -252,6 +304,21 @@ real intelligent systems, and defines for me the three main pillars
 of artificial intelligence. However, there are many other problems, which 
 would need to be solved / integrated within such system to make it fully 
 intelligent, e.g. navigation, learning by imitation, cooperation, and many others.
+I hope that, all other skills can be integrated by means of external interface, and
+don't have to be modelled in any special way. For instance, navigation skill could emerge 
+as an use two interfaces (1) GPS location interface, and (2) an external memory.
+
+
+\section{Disclaimer}
+This is my personal opinion, and it shouldn't be judged in scientific way.
+
+
+I strongly believe that creation of artificial intelligence is potentially
+dangerous. However, I think, that more dangerous is avoiding to create it.
+We exhaust resources of our planet in rapid fashion, and lack of resources 
+leads to wars. The only way to have abundance of resources is to make them free.
+Artificial intelligence could make all resources virtually free. The only remaining
+question is if human can accept world where everything is given.
 
 
 \bibliography{bibliography}
