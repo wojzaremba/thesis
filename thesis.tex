@@ -150,7 +150,7 @@ learning system to become ``intelligent''. Moreover, it attempts to address this
 I believe, that crucial, poorly addressed skills that intelligent system has to poses are
 (1) reasoning abilities, (2) capability to integrate with external interfaces and (3) small sample complexity. 
 I would like to address all this problems within a seamless system. The same system should be used across
-different tasks, and should be able to emulate simpler models. 
+different tasks to verify its empirical universality.
 
 
 I have partially addressed some of proposed problems. I will make clear over the further part of this proposal, 
@@ -166,13 +166,15 @@ premises''\footnote{Definition from \url{http://dictionary.reference.com/browse/
 \\
 System that can reason should be able to understand high level concepts like 
 \begin{itemize}
- \item understand scope
- \item being able to memorize 
- \item branching
+ \item scope
+ \item being able to instantly memorize 
+ \item conditioning
+ \item nesting
  \item repetitions
  \item and many more
 \end{itemize}
-Each of this skills could be solved in particular domain. However, such approach limits use of such system,
+Each of this skills could be solved in particular domain. However, solving problem in a single domain
+limits use of such system,
 and assumes that we know a priori all possible scenarios. 
 Moreover, I think that, intelligent reasoning system cannot be based only on predefined rules. 
 Intelligent system has to be based on pattern matching, and application of learnt heuristic algorithms. 
@@ -182,7 +184,7 @@ There are many domains where we can test if our system can reason, and if it's a
 I would like to use the same tools for all domains. 
 Domains of my interest are learning about computer programs, and 
 proving mathematical theorems.
-This domains are rich in scoping, branching, pattern repetition, and so on. Drawing
+This domains are rich in scoping, branching, nesting, pattern repetition, and so on. Drawing
 high level conclusions in such domains requires sophisticated reasoning skills.
 
 \subsection{Reasoning in computer programs}
@@ -219,12 +221,12 @@ Current results are promising, however they are very limited. We are able to dea
 that can be evaluated by reading them once from left-to-right. Generic programs are not like that.
 Our reasoning system has to be able to evaluate for arbitrary long time, if
 task requires it. Moreover, it shouldn't be limited by finite memory size. Memory should be available
-as an interface \ref{sec:interface}.
+as an interface (Section \ref{sec:interface}).
 
 
 \subsection{Reasoning in mathematics}
 It's known that theorem proving is an intractable task in computational sense. 
-However, humans are able to prove theorems. They have to employ a prior
+However, humans are able to prove theorems. They have to employ a-prior
 knowledge. They fit known mathematical ``tricks'' to the new problem.
 
 
@@ -234,9 +236,14 @@ learning prior over trees of axioms. This prior ``suggests'' us which sequence o
 likely to lead to the theorem proof. 
 
 
-My interest lies in learning such prior in some constrained mathematical 
-domain. Our recent work \cite{zaremba2014learning}, concerns identities 
-over polynomials over matrices. Figure \ref{fig:ident} shows \ref{fig:ident}
+My interest lies in training statistical machine learning system to learn such priors. 
+We have started with very constrained mathematical domain. 
+We learn here prior over mathematical identities. It is not even a prior over proofs.
+Our recent work \cite{zaremba2014learning} concerns identities 
+over polynomials over matrices. Figure \ref{fig:ident} shows example of a simple identity
+over matrix polynomials. It states that, $\sum_{i,j} \sum_k A_{i, k}B_{k, j} = 
+\sum_{j} \sum_k (\sum_i A_{i, k})B_{k, j})$. This an example of toy identity. Our system is able
+to derive much more sophisticated identities.
 
 
 \begin{figure}
@@ -244,81 +251,150 @@ over polynomials over matrices. Figure \ref{fig:ident} shows \ref{fig:ident}
   \includegraphics[width=0.48\textwidth]{imgs/example1_brute.png}\\
   {\bf Is equivalent to:}\\
   \includegraphics[width=0.48\textwidth]{imgs/example1_opt.png}\\
-  \caption{\cite{zaremba2014learning}}
+  \caption{Example of two equivalent mathematical expressions. It states that
+  $\sum_{i,j} \sum_k A_{i, k}B_{k, j} = \sum_{j} \sum_k (\sum_i A_{i, k})B_{k, j})$ \cite{zaremba2014learning}.
+  This is a toy example, and cited paper contains more sophisticated examples.}
   \label{fig:ident}
 \end{figure}
 
 
 \section{Interface learning}
 \label{sec:interface}
-Contemporary machine learning systems are closed in a box.
-They have limited access to the training dataset, 
+Neural networks are a very powerful statistical models, however
+some concepts might be very difficult for them to express.
+For instance, nesting seems to be a very common operation, that
+allows to deal with (1) object hierarchy, (2) natural language parsing,
+and (3) compositionality. It would be best to provide stack as an external
+interface to the neural network. Neural network should be able to learn how
+to use such interface. 
 
-, and cannot 
-interact with external interfaces.
+External interfaces could enhance neural networks capabilities, and also provide
+access to external resources, and datasets.
+There are few other interfaces that could be very useful:
+\begin{itemize}
+  \item stack
+  \item FIFO
+  \item an external memory \cite{weston2014memory, graves2014neural}
+  \item search engine
+  \item database
+  \item execution environment like python interpreter
+\end{itemize}
 
 
-Initial advances in machine learning, where lead by engineering features, 
-e.g histogram of colors, SIFT (Scale-invariant feature transform) features. 
-This approach has its limitations, and its fragile. Moreover, it requires a 
-human expert to train the system for the every new domain. Ideal system should 
-have access to external interfaces that might give access to information, or simplify it processing. 
-Interfaces that I have in mind are following (1) an external memory \cite{weston2014memory, graves2014neural}, 
-(2) grid that helps to process images, (2) search engine, 
-(4) Linux syscalls, or (5) execution environment like python interpreter. External interfaces are not-differentiable, 
-and their state space is massive. This obstacles could potentially be addressed by learning a differentiable 
+State space of many interfaces is massive (e.g. all possible search queries).
+Moreover, external interfaces are not-differentiable, 
+This obstacles could potentially be addressed by learning a differentiable 
 model that describes them (e.g. neural network). Neural network would simulate such 
-external interface for purpose of being differentiable in a model-based reinforcement learning approach. 
-This work is under progress.
+external interface for purpose of being differentiable.
+Some of work in area of interface learning is under progress. It is one of my major projects now.
+
 
 \section{Small sample complexity}
 Current deep learning systems suffer of large sample complexity. Such 
 high sample complexity hinders potential use of the systems in online 
-learning systems (e.g. robots). It’s expected that during the initial phase of 
+learning setting (e.g. robots). It’s expected that during the initial phase of 
 learning any system without prior knowledge would need to consume a large number of samples. 
 We hope that over the time of training, sample complexity should drop. However, this is 
-not observed in current systems. I propose several approaches how sample complexity can be decreased. 
-Meta-optimizer is a target solution. However, I propose some intermediate solutions, that can potentially help.
+not observed in a current systems. I propose several approaches how sample complexity can be decreased. 
+Meta-optimizer (Subsection \ref{subsec:meta}) is the target solution. Moreover, I propose some intermediate solutions, that can potentially
+decrease sample complexity.
+
+\subsection{Automatic derivation of better models}
+Neural networks are designed ad-hoc. People have only some partial intuition
+regarding how to build high prediction performance systems. 
+One way of addressing this issue would be to
+fully understand why, and how models work. However, it is unclear if it is even 
+possible (maybe best explanation is a model itself). I would like to automatically
+explore large space of models, and evaluate them on various tasks. 
+This involves connectivity, activation functions, and hyper-parameters.
+I would optimize it with genetic programming.
+This work is under progress. It is one of my major projects now.
+
 
 \subsection{Augmentation marginalization}
+For simplicity of explanation, we focus on computer vision tasks.
+
+
+We often train neural networks for multiple epochs, while the same 
+samples are presented multiple times. The best performance is
+achieved when samples are slightly modified over the course of training.
+In case of computer vision, it is done by jittering images, rotating
+them, and so on. This is known as data-augmentation. 
+Theoretically, a full image contains information about all updates obtained
+with all possible augmented samples. More formally, let $x$ be an image, $y$ its label and
+$x_1, x_2 \dots x_k$, are its augmented copies. $L$ is a loss function, and $\theta_i$ are parameters at step $i$.
+I would like to
+predict with $x$ sum of derivatives for all data augmentations:
+\begin{align}
+f(x, \theta_1) = \sum_{i=1}^k \partial_\theta L(x_k, y, \theta_i)
+\end{align}
+
+Instead of following gradient of $\partial_\theta L(x, y, \theta_1)$, we could
+follow $f(x, \theta_1)$.
+This could improve learning speed, as a single sample would provide
+information about it's all augmented copies. 
+
+
+Function $f$ might have its own parameters, and I would like to model it 
+as a neural network. We could train it in supervised fashion. The main issue
+is how to avoid explosion of parameters in $f$. 
+
 
 \subsection{One-shot learning objective}
+Human is able to recognize a new object by seeing them just once.
+Contemporary deep learning systems are far from it. They need hundreds or
+even thousands of instances to make use out of it. 
+We propose a new formulation of neural network training that focus on training
+toward the one-shot learning objective. 
 
 
-This work is under progress.
+We achieve it by training neural network to predict parameters of a neural network. 
+More formally, let $\phi(x, W_{in}, \theta) = (y, W_{y})$ be a neural network parametrized
+by $\theta$. Weights $W_{in} \in \mathbb{R}^{f \times l}$ are a top layer weights, where
+$f$ is a top layer feature size, and $l$ is a number of labels. $W_{y} \in \mathbb{R}^f$ is a
+single weight vector used to predict class $y$.
+
+
+
+For a given new class $x', y'$, we compute $_, W_{y'} = \phi(x', None, \theta)$ to produce weights $W_{y'}$. 
+We use this weights to classify
+other objects belonging to the class $y'$.
+
+
+
+This work is under progress. It is supervised by my collaborators Elias Bingham, and Brenden Lake.
 
 \subsection{Meta-optimizer}
-I would like to build a meta-optimizer that could 
-overcome this limitation. Such optimizer would consume gradients of a neural network, 
+\label{subsec:meta}
+I would like to build a meta-optimizer that would be used to train neural network.
+Such optimizer would consume gradients of a neural network, 
 and would decide on the next update step. Optimizer itself could be parameterized 
-with a neural network. Proper weights could simulate any first order, gradient-based, 
-learning algorithm like SGD, momentum, LBFGs etc. This implies that meta-optimizer 
-subsumes all first order, gradient-based optimization techniques. Trained meta-optimizer 
+with a neural network. Proper weights of meta-optimizer should be able to simulate any first order, gradient-based, 
+learning algorithm like SGD, momentum, LBFGs etc. This implies that meta-optimizer should 
+subsume all first order, gradient-based optimization techniques. Trained meta-optimizer 
 could update the network in a much more clever way, and a single sample could provide enough knowledge.
-This work is under progress.
-
+This work is under progress. It is supervised by my collaborator Rahul Krishnan, and Anna Choromanska.
 
 \section{Discussion}
 Tackling aforementioned problems would take us much closer to the
 real intelligent systems, and defines for me the three main pillars 
 of artificial intelligence. However, there are many other problems, which 
-would need to be solved / integrated within such system to make it fully 
-intelligent, e.g. navigation, learning by imitation, cooperation, and many others.
-I hope that, all other skills can be integrated by means of external interface, and
-don't have to be modelled in any special way. For instance, navigation skill could emerge 
+would need to be solved and integrate to achieve fully 
+intelligent system, e.g. navigation, learning by imitation, cooperation, and many others.
+However, I think that, all that skills can be integrated by means of external interface, and
+don't have to be modeled in any special way. For instance, navigation skill could emerge 
 as an use two interfaces (1) GPS location interface, and (2) an external memory.
 
 
 \section{Disclaimer}
-This is my personal opinion, and it shouldn't be judged in scientific way.
+This is my personal opinion, and it shouldn't be judged in a scientific way.
 
 
 I strongly believe that creation of artificial intelligence is potentially
 dangerous. However, I think, that more dangerous is avoiding to create it.
 We exhaust resources of our planet in rapid fashion, and lack of resources 
-leads to wars. The only way to have abundance of resources is to make them free.
-Artificial intelligence could make all resources virtually free. The only remaining
-question is if human can accept world where everything is given.
+leads to wars. The only way to prevent it is to have abundance of resources.
+Artificial intelligence could provide abundance of all resources.
 
 
 \bibliography{bibliography}
