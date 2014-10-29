@@ -145,22 +145,22 @@
 \end{abstract} 
 
 \section{Introduction}
-It is clear that by improving the performance of current statistical learning systems, 
-we will not be able to make them intelligent, even if they achieve
+It is clear that improving the performance of current statistical learning systems, 
+will not make them intelligent, even if they achieve
 $0\%$ test error. This proposal explores what skills are necessary for statistical
 learning system to become ``intelligent'' and outlines attempts to
-address these skills. 
+provide these skills. 
 
 While many qualities make up true intelligence, we focus on three
 skills that are notably lacking from current approaches: (i) the
 ability to reason, (ii) the capability to integrate with external
-interfaces and (iii) a small sample complexity. The goal is to address
-all of these problems within a single unified framework. This will be
-approaches to a wide range of tasks in different domains, to empirically
+interfaces and (iii) small sample complexity. The goal is to provide
+all of these skills within a single unified framework. This will be
+approached via a wide range of tasks in different domains, to empirically
 verify its robustness. 
 
-For some of these tasks, exploratory work has been performed which
-gives good intuitions for the proposed work. 
+For some of these tasks, exploratory work has already been performed 
+giving good intuitions for the proposed work. 
 
 \section{Reasoning abilities}
 
@@ -174,7 +174,7 @@ reason should be able to understand high level concepts like:
  \item Repetitions
  \item Memorization 
  \end{itemize}
-While each of this skills could be solved in particular domain, the
+While each of this skills could be solved in a particular domain; the
 resulting system would be of little use and would require
 strong assumptions about possible scenarios. Moreover, an intelligent
 reasoning system cannot be based only on predefined rules. Instead, it
@@ -199,7 +199,7 @@ addition it involves bit shifts, and memorization of operations on
 digits. Moreover, programs can contain variable assignment, if-statements, and so on.
 We were able partially to address this problem \cite{zaremba2014execute}.
 Figure \ref{fig:prog} shows an exemplary program and its output, along
-with a prediction of the output obtained with recurrent neural network.
+with a prediction of the output obtained with a recurrent neural network.
 
 \begin{figure}
   \begin{code}
@@ -213,7 +213,7 @@ with a prediction of the output obtained with recurrent neural network.
   {\bf Model prediction:} 9368. 
   \end{mdframed}
   \end{code}
-  \caption{An exemplary program that we take as an input. The task is
+  \caption{An example program that we take as an input. The task is
     to predict the evaluation of the program. We have 
   achieved a high level of performance on this task \cite{zaremba2014execute}.}
   \label{fig:prog}
@@ -223,14 +223,14 @@ with a prediction of the output obtained with recurrent neural network.
 Although current results are promising, they are very limited. We are able to deal with programs
 that can be evaluated by reading them once from left-to-right, but
 generic programs are far more complex. Our reasoning system has to be
-able to evaluate for arbitrarily long time, if the
+able to evaluate for an arbitrarily long time, if the
 task requires it. Moreover, it shouldn't be limited by a fixed memory
 size. Instead, memory should be available
 as an interface (see Section \ref{sec:interface}).
 
 
 \subsection{Reasoning in mathematics}
-It is known that theorem proving is an intractable task in computational sense. 
+It is known that theorem proving is an intractable task in a computational sense. 
 However, humans are able to prove theorems. They do this by employing prior
 knowledge, acquired from experience of solving other, related
 problems, and fitting known mathematical ``tricks'' to the new problem.
@@ -238,7 +238,7 @@ problems, and fitting known mathematical ``tricks'' to the new problem.
 More formally, we can think about proofs as an application with
 multiple axioms that starts with a 
 hypothesis that we want to prove. Thus mathematical skills can be perceived as 
-learning prior over trees of axioms. This prior ``suggests'' which sequence of axioms is more
+a learning prior over trees of axioms. This prior ``suggests'' which sequence of axioms is more
 likely to lead to a proof of the theorem. 
 
 
@@ -248,7 +248,7 @@ polynomials and demonstrate that here we can learn a prior over mathematical ide
 Our recent work \cite{zaremba2014learning} concerns identities 
 over polynomials over matrices. Figure \ref{fig:ident} shows example of a simple identity
 over matrix polynomials. It states that, $\sum_{i,j} \sum_k A_{i, k}B_{k, j} = 
-\sum_{j} \sum_k (\sum_i A_{i, k})B_{k, j})$. This an example of toy identity. Our system is able
+\sum_{j} \sum_k (\sum_i A_{i, k})B_{k, j})$. This is an example of a toy identity. Our system is able
 to derive much more sophisticated identities.
 
 
@@ -259,7 +259,7 @@ to derive much more sophisticated identities.
   \includegraphics[width=0.48\textwidth]{imgs/example1_opt.png}\\
   \caption{An example of two equivalent mathematical expressions. It states that
   $\sum_{i,j} \sum_k A_{i, k}B_{k, j} = \sum_{j} \sum_k (\sum_i A_{i,
-    k})B_{k, j})$. \cite{zaremba2014learning} contains more sophisticated examples.}
+    k})B_{k, j})$. \cite{zaremba2014learning} contains much more sophisticated examples.}
   \label{fig:ident}
 \end{figure}
 
@@ -267,10 +267,10 @@ to derive much more sophisticated identities.
 \section{Interface learning}
 \label{sec:interface}
 Neural networks are very powerful statistical models, however some
-concepts might be very difficult for them to express.  For instance,
+concepts appears to be very difficult for them to express.  For instance,
 nesting seems to be a very common operation, that allows one to deal
 with (1) object hierarchies, (2) natural language parsing, and (3)
-compositionality. The ability to nest concepts can be provided by
+compositionality. I think that, the ability to nest concepts could be provided by
 adding a stack as an external interface to the neural network, with
 the neural network learning how to use such an interface.
 
@@ -280,33 +280,33 @@ interfaces include:
 \begin{itemize}
   \item stack
   \item FIFO
-  \item an external memory \cite{weston2014memory, graves2014neural}
+  \item external memory \cite{weston2014memory, graves2014neural}
   \item search engine
   \item database
-  \item execution environment like python interpreter
+  \item execution environment such as a python interpreter
 \end{itemize}
 
-The state space of many interfaces is massive (e.g. all possible search queries).
-Moreover, external interfaces are non-differentiable, 
+The state space of many interfaces is massive (e.g.\ all possible search queries).
+Moreover, external interfaces are non-differentiable.
 These obstacles could potentially be addressed by learning a differentiable 
 model that describes them (e.g.~a neural network). This network would simulate the
-external interface for purpose of being differentiable. 
+external interface for the purpose of being differentiable. 
 
 \section{Small sample complexity}
-Current deep learning systems suffer from a large sample
-complexity. This hinders the potential use of system for online 
+Current deep learning systems suffer from large sample
+complexity. This hinders the potential use of these systems for online 
 learning (e.g.~robots). It is expected that during the initial phase of 
 learning any system without prior knowledge would need to consume a large number of samples. 
-However, we hope that as training progresses, sample complexity should drop. But this is 
-not observed in a current systems. I propose several approaches that
+However, we hope that as training progresses, sample complexity would drop. But this is 
+not observed in current systems. I propose several approaches that would
 allow sample complexity to be decreased. 
 The meta-optimizer (see Subsection \ref{subsec:meta}) is the desired
 solution, but I also propose some intermediate solutions that can also
 decrease sample complexity.
 
 \subsection{Automatic derivation of better models}
-Neural networks are designed in an ad-hoc fashion, using a researchers
-intuition about what architectures will result in a high prediction
+Neural networks are designed in an ad-hoc fashion, using a researcher's
+intuition about what architectures will result in a high-prediction
 performance. One way of addressing this issue would be to
 fully understand why, and how the models work. However, mathematical
 analyses give little insight and it is unclear if it is even 
@@ -326,12 +326,12 @@ achieved when samples are slightly modified over the course of training.
 In case of computer vision, it is done by jittering images, rotating
 them, and so on. This is known as data-augmentation. 
 Theoretically, a full image contains information about all updates obtained
-with all possible augmented samples. More formally, let $x$ be an image, $y$ its label and
-$x_1, x_2 \dots x_k$, are its augmented copies. $L$ is a loss function, and $\theta_i$ are parameters at step $i$.
+with all possible augmented samples. More formally, let $x$ be an image, $y$ its label, and
+$x_1, x_2 \dots x_k$ are its augmented copies. $L$ is a loss function, and $\theta_i$ are parameters at step $i$. So $\theta_1$ is a initial set of parameters, and $\theta_{k+1}$ is a set of parameters after $k$ updates. 
 I would like to
-predict for a given $x$, the sum of derivatives for all data augmentations:
+predict for a given $x$, the sum of the derivatives for all data augmentations:
 \begin{align}
-f(x, \theta_1) = \sum_{i=1}^k \partial_\theta L(x_k, y, \theta_i)
+  f(x, \theta_1) = \sum_{i=1}^k \partial_\theta L(x_k, y, \theta_i) = \theta_{k+1} - \theta_1
 \end{align}
 
 Instead of following gradient of $\partial_\theta L(x, y, \theta_1)$, we could
@@ -343,20 +343,20 @@ The function $f$ might have its own parameters, and I would like to model it
 as a neural network which would be trained in a supervised fashion. 
 
 \subsection{One-shot learning objective}
-Human are able to recognize a new object by seeing them just once.
+Human are able to recognize new objects after seeing them just once.
 Contemporary deep learning systems are far from being able to do this,
 requiring hundreds or even thousands of examples.  We propose a new
-formulation of neural network training that focus on training for the
+formulation of neural network training that focuses on training for the
 one-shot learning objective.
 
 The main idea is to train one neural network to predict parameters of another neural network. 
 More formally, let $\phi(x, W_{in}, \theta) = (y, W_{y})$ be a neural network parametrized
-by $\theta$. Weights $W_{in} \in \mathbb{R}^{f \times l}$ are a top layer weights, where
-$f$ is a top layer feature size, and $l$ is a number of labels. $W_{y} \in \mathbb{R}^f$ is a
+by $\theta$. Weights $W_{in} \in \mathbb{R}^{f \times l}$ are top layer weights, where
+$f$ is the top layer feature size, and $l$ is the number of labels. $W_{y} \in \mathbb{R}^f$ is a
 single weight vector used to predict class $y$.
 
 For a given new class $x', y'$, we compute $ W_{y'} = \phi(x', None, \theta)$ to produce weights $W_{y'}$. 
-We use this weights to classify
+We use these weights to classify
 other objects belonging to the class $y'$.
 This idea is currently being explored with my collaborators Elias Bingham and Brenden Lake.
 
@@ -373,7 +373,7 @@ optimization techniques.  This work is under progress,
 supervised by my collaborator Rahul Krishnan and Anna Choromanska.
 
 \section{Discussion}
-Tackling the aforementioned problems would take us much closer to the
+Tackling the aforementioned problems would take us much closer to
 real intelligent systems, and defines three core pillars 
 of Artificial Intelligence. However, there are many other problems which 
 need to be solved and integrated to achieve a fully 
